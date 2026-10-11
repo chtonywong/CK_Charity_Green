@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CK Charity Foundation Limited</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Three.js CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <!-- Google Fonts Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased selection:bg-emerald-500 selection:text-white">
+
+    <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-xl bg-emerald-700 flex items-center justify-center text-white font-bold text-xl shadow-md">CK</div>
+                <div>
+                    <span class="block font-bold text-lg text-slate-900 leading-tight">CK Charity Foundation</span>
+                    <span class="block text-xs text-emerald-700 font-medium tracking-wide">Serving Hong Kong with Love</span>
+                </div>
+            </div>
+            <nav class="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-600">
+                <a href="#home" class="hover:text-emerald-700 transition-colors">Home</a>
+                <a href="#about" class="hover:text-emerald-700 transition-colors">About Us</a>
+                <a href="#mission" class="hover:text-emerald-700 transition-colors">Mission</a>
+                <a href="#initiatives" class="hover:text-emerald-700 transition-colors">Initiatives & 3D Lab</a>
+                <a href="#contact" class="px-4 py-2 rounded-lg bg-emerald-700 text-white hover:bg-emerald-800 transition-colors shadow-sm">Work With Us</a>
+            </nav>
+            <button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg text-slate-600 hover:bg-slate-100">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+            </button>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden px-4 pt-2 pb-4 space-y-2 bg-white border-b border-slate-200">
+            <a href="#home" class="block px-3 py-2 rounded-md hover:bg-slate-100 font-medium">Home</a>
+            <a href="#about" class="block px-3 py-2 rounded-md hover:bg-slate-100 font-medium">About Us</a>
+            <a href="#mission" class="block px-3 py-2 rounded-md hover:bg-slate-100 font-medium">Mission</a>
+            <a href="#initiatives" class="block px-3 py-2 rounded-md hover:bg-slate-100 font-medium">Initiatives & 3D Lab</a>
+            <a href="#contact" class="block px-3 py-2 rounded-md bg-emerald-700 text-white font-medium text-center">Work With Us</a>
+        </div>
+    </header>
+
+    <main>
+        <section id="home" class="relative overflow-hidden bg-gradient-to-b from-emerald-900 to-slate-900 text-white py-24 lg:py-32">
+            <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:16px_16px]"></div>
+            <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative text-center">
+                <span class="inline-block py-1 px-3 rounded-full bg-emerald-800/80 text-emerald-200 text-xs font-semibold tracking-wider uppercase mb-6 border border-emerald-600/30">Faith-Driven Compassion</span>
+                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight mb-6">Serving Hong Kong with Love and Purpose</h1>
+                <p class="text-lg sm:text-xl text-slate-300 max-w-3xl mx-auto mb-10 leading-relaxed">Empowering vulnerable youth through financial literacy, lifting seniors and caregivers through brain health support, and bringing practical hope to our community.</p>
+                <div class="bg-white/10 backdrop-blur-md border border-white/10 rounded-2xl p-6 sm:p-8 max-w-2xl mx-auto mb-10 shadow-xl">
+                    <p class="italic text-emerald-200 text-base sm:text-lg mb-2">"Truly I tell you, whatever you did for one of the least of these brothers and sisters of mine, you did for me."</p>
+                    <span class="text-xs uppercase tracking-widest text-emerald-400 font-semibold">— Matthew 25:40</span>
+                </div>
+                <div class="flex flex-wrap justify-center gap-4">
+                    <a href="#initiatives" class="px-8 py-4 rounded-xl bg-emerald-500 text-white font-semibold hover:bg-emerald-600 transition-all shadow-lg hover:shadow-emerald-500/25">Explore Our Initiatives</a>
+                    <a href="#contact" class="px-8 py-4 rounded-xl bg-white/10 hover:bg-white/20 text-white font-semibold transition-all border border-white/20">Join Our Mission</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="py-20 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto mb-16">
+                    <h2 class="text-3xl font-bold text-slate-900 sm:text-4xl mb-4">Our Story & Founders</h2>
+                    <p class="text-slate-600 text-lg">Born out of gratitude for the stability and opportunities Hong Kong offers, our founding team combines professional expertise with faith-driven action.</p>
+                </div>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="bg-slate-50 border border-slate-100 rounded-2xl p-8 shadow-sm hover:shadow-md transition-shadow">
+                        <div class="w-12 h-12 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold text-xl mb-6">💼</div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-3">Financial Background</h3>
+                        <p class="text-slate-600 leading-relaxed">Empowering teenagers and low-income families by tackling financial insecurity and teaching practical money management and budgeting skills.</p>
+                    </div>
+                    <div class="bg-slate-50 border border-slate-100 rounded-2xl p-8 shadow-sm hover:shadow-md transition-shadow">
+                        <div class="w-12 h-12 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold text-xl mb-6">📚</div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-3">Education Background</h3>
+                        <p class="text-slate-600 leading-relaxed">Delivering transformative learning experiences that go far beyond textbooks, equipping young individuals for real-world challenges.</p>
+                    </div>
+                    <div class="bg-slate-50 border border-slate-100 rounded-2xl p-8 shadow-sm hover:shadow-md transition-shadow">
+                        <div class="w-12 h-12 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold text-xl mb-6">🏥</div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-3">Dental & Healthcare</h3>
+                        <p class="text-slate-600 leading-relaxed">Recognizing the vital link between health, dignity, and quality of life—supporting parents and seniors with cognitive and physical care needs.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="mission" class="py-20 bg-slate-100/70">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="bg-emerald-900 text-white rounded-3xl p-8 sm:p-12 lg:p-16 shadow-xl relative overflow-hidden">
+                    <div class="absolute -right-20 -bottom-20 w-80 h-80 bg-emerald-800 rounded-full opacity-30 pointer-events-none"></div>
+                    <div class="max-w-3xl relative z-10">
+                        <span class="text-emerald-300 font-semibold text-sm uppercase tracking-wider block mb-2">Our Core Purpose</span>
+                        <h2 class="text-3xl sm:text-4xl font-extrabold mb-6">Our Mission</h2>
+                        <p class="text-slate-200 text-lg mb-8 leading-relaxed">To embody the love of Christ by addressing both the practical and spiritual needs of Hong Kong’s marginalized and aging populations through measurable, tangible action.</p>
+                        <div class="grid sm:grid-cols-2 gap-6">
+                            <div class="flex items-start space-x-3">
+                                <div class="w-6 h-6 rounded-full bg-emerald-500 text-white flex items-center justify-center flex-shrink-0 mt-1 font-bold text-xs">✓</div>
+                                <div><strong class="block text-white">Love in Action</strong><span class="text-slate-300 text-sm">Compassion through tangible support.</span></div>
+                            </div>
+                            <div class="flex items-start space-x-3">
+                                <div class="w-6 h-6 rounded-full bg-emerald-500 text-white flex items-center justify-center flex-shrink-0 mt-1 font-bold text-xs">✓</div>
+                                <div><strong class="block text-white">Empower Vulnerable</strong><span class="text-slate-300 text-sm">Equipping teens with life resources.</span></div>
+                            </div>
+                            <div class="flex items-start space-x-3">
+                                <div class="w-6 h-6 rounded-full bg-emerald-500 text-white flex items-center justify-center flex-shrink-0 mt-1 font-bold text-xs">✓</div>
+                                <div><strong class="block text-white">Bridge Gaps</strong><span class="text-slate-300 text-sm">Professional expertise filling social needs.</span></div>
+                            </div>
+                            <div class="flex items-start space-x-3">
+                                <div class="w-6 h-6 rounded-full bg-emerald-500 text-white flex items-center justify-center flex-shrink-0 mt-1 font-bold text-xs">✓</div>
+                                <div><strong class="block text-white">Create Lasting Impact</strong><span class="text-slate-300 text-sm">Bringing hope and positive societal change.</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="initiatives" class="py-20 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto mb-12">
+                    <span class="text-emerald-700 font-semibold text-sm uppercase tracking-wider block mb-2">Interactive 3D Lab</span>
+                    <h2 class="text-3xl font-bold text-slate-900 sm:text-4xl mb-4">What We Do & Action Visualizer</h2>
+                    <p class="text-slate-600 text-lg">Click below to switch between our core focus areas and observe the interactive 3D graphic rendering of our community initiatives.</p>
+                </div>
+
+                <!-- Initiative Switcher Tabs -->
+                <div class="flex flex-wrap justify-center gap-3 mb-10">
+                    <button onclick="switchInitiative(0)" id="tab-0" class="px-6 py-3 rounded-xl font-semibold text-sm transition-all bg-emerald-700 text-white shadow-md">1. Financial Literacy (Teens)</button>
+                    <button onclick="switchInitiative(1)" id="tab-1" class="px-6 py-3 rounded-xl font-semibold text-sm transition-all bg-slate-100 text-slate-700 hover:bg-slate-200">2. Dreams Come True</button>
+                    <button onclick="switchInitiative(2)" id="tab-2" class="px-6 py-3 rounded-xl font-semibold text-sm transition-all bg-slate-100 text-slate-700 hover:bg-slate-200">3. Brain Health & Dementia (Parents)</button>
+                </div>
+
+                <div class="grid lg:grid-cols-12 gap-8 items-center bg-slate-900 rounded-3xl p-6 sm:p-10 text-white shadow-2xl">
+                    <!-- Text Details Column -->
+                    <div class="lg:col-span-6 space-y-6">
+                        <div id="initiative-info" class="space-y-4">
+                            <h3 id="init-title" class="text-2xl sm:text-3xl font-bold text-emerald-400">Financial Literacy: Teaching Beyond Conventional Learning</h3>
+                            <p id="init-desc" class="text-slate-300 leading-relaxed">Financial education in schools is minimal. We help at-risk youth and low-income families avoid debt and financial anxiety through practical money skills.</p>
+                            <ul id="init-list" class="space-y-2 text-slate-300 text-sm">
+                                <li class="flex items-center space-x-2"><span class="text-emerald-400 font-bold">•</span><span>Workshops on budgeting, saving, and avoiding predatory lending.</span></li>
+                                <li class="flex items-center space-x-2"><span class="text-emerald-400 font-bold">•</span><span>Targeted mentorship for young adults under financial stress.</span></li>
+                                <li class="flex items-center space-x-2"><span class="text-emerald-400 font-bold">•</span><span>Teaching the ethics of wealth, stewardship, and generosity.</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- Three.js Canvas Column -->
+                    <div class="lg:col-span-6 relative h-80 sm:h-96 bg-slate-950 rounded-2xl overflow-hidden border border-slate-800 shadow-inner flex items-center justify-center">
+                        <div id="canvas-container" class="w-full h-full cursor-grab active:cursor-grabbing"></div>
+                        <div class="absolute bottom-4 left-4 bg-black/60 backdrop-blur-md px-3 py-1.5 rounded-lg text-xs text-slate-300 border border-white/10 pointer-events-none">
+                            Interactive 3D Simulation • Drag to rotate
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="py-20 bg-slate-50 border-t border-slate-200">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto mb-16">
+                    <h2 class="text-3xl font-bold text-slate-900 sm:text-4xl mb-4">Partner with Us</h2>
+                    <p class="text-slate-600 text-lg">Whether you are a teen looking for mentorship, a parent seeking health support, a volunteer, or an organization—we welcome you.</p>
+                </div>
+                <div class="grid md:grid-cols-3 gap-8 mb-16">
+                    <div class="bg-white rounded-2xl p-8 border border-slate-200 shadow-sm">
+                        <h3 class="text-xl font-bold text-slate-900 mb-3 text-emerald-700">Volunteer</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed mb-4">We need hands and hearts. Teach a financial literacy class, visit a senior parent, or assist with community programs.</p>
+                        <span class="text-xs font-semibold uppercase tracking-wider text-slate-400">Get Involved</span>
+                    </div>
+                    <div class="bg-white rounded-2xl p-8 border border-slate-200 shadow-sm">
+                        <h3 class="text-xl font-bold text-slate-900 mb-3 text-emerald-700">Partner</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed mb-4">Collaborating with churches, faith-based groups, charity institutions, schools, and corporations with CSR goals.</p>
+                        <span class="text-xs font-semibold uppercase tracking-wider text-slate-400">Collaborate</span>
+                    </div>
+                    <div class="bg-white rounded-2xl p-8 border border-slate-200 shadow-sm">
+                        <h3 class="text-xl font-bold text-slate-900 mb-3 text-emerald-700">Donate & Support</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed mb-4">Your financial support enables us to run teen workshops, caregiver support groups, and reach vulnerable families.</p>
+                        <span class="text-xs font-semibold uppercase tracking-wider text-slate-400">Give Hope</span>
+                    </div>
+                </div>
+                <div class="bg-emerald-900 text-white rounded-2xl p-8 sm:p-12 text-center max-w-4xl mx-auto">
+                    <h3 class="text-2xl font-bold mb-4">Get in Touch with CK Charity Foundation</h3>
+                    <p class="text-slate-300 mb-6">Reach out to our team to join our upcoming workshops or support our mission.</p>
+                    <div class="flex flex-wrap justify-center gap-6 text-sm font-medium">
+                        <div class="bg-white/10 px-6 py-3 rounded-xl border border-white/10">Email: info@ckcharity.org.hk</div>
+                        <div class="bg-white/10 px-6 py-3 rounded-xl border border-white/10">Phone: +852 2345 6789</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-slate-900 text-slate-400 py-12 border-t border-slate-800 text-center">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <p>&copy; 2026 CK Charity Foundation Limited. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const menuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Initiative content data
+        const initiativeData = [
+            {
+                title: "Financial Literacy: Teaching Beyond Conventional Learning",
+                desc: "Financial education in Hong Kong schools is minimal. We go beyond standard textbooks to teach practical money skills and targeted programs for at-risk youth.",
+                list: [
+                    "Workshops on budgeting, saving, and avoiding predatory lending.",
+                    "Mentorship for young adults and low-income families.",
+                    "Teaching the ethics of wealth, stewardship, and generosity."
+                ]
+            },
+            {
+                title: "Dreams Come True: Removing Barriers",
+                desc: "Helping individuals who have the will and talent but lack the means or guidance to pursue realistic personal goals and overcome obstacles.",
+                list: [
+                    "Empowering talented individuals with guidance and resources.",
+                    "Removing specific barriers between a person and a realistic dream.",
+                    "Fostering hope: 'Every dream deserves a chance, every person deserves hope.'"
+                ]
+            },
+            {
+                title: "Focus on Dementia & Brain Health (For Parents & Caregivers)",
+                desc: "Addressing pressing healthcare challenges in Hong Kong by supporting family caregiver networks and promoting early detection and brain health awareness.",
+                list: [
+                    "Caregiver support: respite services, training, and emotional networks.",
+                    "Educational workshops on brain health, early detection, and reducing stigma.",
+                    "Exploring the critical link between oral health and cognitive decline."
+                ]
+            }
+        ];
+
+        function switchInitiative(index) {
+            // Update active tab styles
+            for (let i = 0; i < 3; i++) {
+                const btn = document.getElementById(`tab-${i}`);
+                if (i === index) {
+                    btn.className = "px-6 py-3 rounded-xl font-semibold text-sm transition-all bg-emerald-700 text-white shadow-md";
+                } else {
+                    btn.className = "px-6 py-3 rounded-xl font-semibold text-sm transition-all bg-slate-100 text-slate-700 hover:bg-slate-200";
+                }
+            }
+
+            // Update text content
+            const data = initiativeData[index];
+            document.getElementById('init-title').innerText = data.title;
+            document.getElementById('init-desc').innerText = data.desc;
+            const listEl = document.getElementById('init-list');
+            listEl.innerHTML = data.list.map(item => `<li class="flex items-center space-x-2"><span class="text-emerald-400 font-bold">•</span><span>${item}</span></li>`).join('');
+
+            // Update Three.js 3D Scene
+            updateThreeScene(index);
+        }
+
+        // Three.js Setup
+        const container = document.getElementById('canvas-container');
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(60, container.clientWidth / container.clientHeight, 0.1, 1000);
+        camera.position.z = 5;
+
+        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+        renderer.setSize(container.clientWidth, container.clientHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        container.appendChild(renderer.domElement);
+
+        // Lighting
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
+        scene.add(ambientLight);
+        const pointLight = new THREE.PointLight(0x10b981, 2, 50);
+        pointLight.position.set(5, 5, 5);
+        scene.add(pointLight);
+
+        // Active 3D Group
+        let activeGroup = new THREE.Group();
+        scene.add(activeGroup);
+
+        function createFinancialScene() {
+            const group = new THREE.Group();
+            // Create stack of coin cylinders
+            for (let i = 0; i < 5; i++) {
+                const geometry = new THREE.CylinderGeometry(1.2, 1.2, 0.2, 32);
+                const material = new THREE.MeshStandardMaterial({ color: 0x10b981, roughness: 0.3, metalness: 0.8 });
+                const coin = new THREE.Mesh(geometry, material);
+                coin.position.y = (i - 2) * 0.35;
+                group.add(coin);
+            }
+            return group;
+        }
+
+        function createDreamScene() {
+            const group = new THREE.Group();
+            // Create central glowing crystal/star
+            const geometry = new THREE.OctahedronGeometry(1.5, 0);
+            const material = new THREE.MeshStandardMaterial({ color: 0x3b82f6, roughness: 0.2, metalness: 0.5, wireframe: false });
+            const crystal = new THREE.Mesh(geometry, material);
+            group.add(crystal);
+
+            // Orbiting particles
+            for (let i = 0; i < 12; i++) {
+                const sphereGeo = new THREE.SphereGeometry(0.15, 16, 16);
+                const sphereMat = new THREE.MeshStandardMaterial({ color: 0xf59e0b });
+                const sphere = new THREE.Mesh(sphereGeo, sphereMat);
+                const angle = (i / 12) * Math.PI * 2;
+                sphere.position.set(Math.cos(angle) * 2.5, Math.sin(angle) * 0.5, Math.sin(angle) * 2.5);
+                group.add(sphere);
+            }
+            return group;
+        }
+
+        function createBrainHealthScene() {
+            const group = new THREE.Group();
+            // Neural network sphere representation
+            const sphereGeo = new THREE.SphereGeometry(1.4, 16, 16);
+            const sphereMat = new THREE.MeshStandardMaterial({ color: 0x065f46, wireframe: true, transparent: true, opacity: 0.7 });
+            const core = new THREE.Mesh(sphereGeo, sphereMat);
+            group.add(core);
+
+            for (let i = 0; i < 20; i++) {
+                const nodeGeo = new THREE.SphereGeometry(0.1, 8, 8);
+                const nodeMat = new THREE.MeshStandardMaterial({ color: 0x34d399, emissive: 0x059669 });
+                const node = new THREE.Mesh(nodeGeo, nodeMat);
+                node.position.set(
+                    (Math.random() - 0.5) * 3,
+                    (Math.random() - 0.5) * 3,
+                    (Math.random() - 0.5) * 3
+                );
+                group.add(node);
+            }
+            return group;
+        }
+
+        let currentSceneIndex = 0;
+        function updateThreeScene(index) {
+            currentSceneIndex = index;
+            scene.remove(activeGroup);
+            if (index === 0) activeGroup = createFinancialScene();
+            else if (index === 1) activeGroup = createDreamScene();
+            else if (index === 2) activeGroup = createBrainHealthScene();
+            scene.add(activeGroup);
+        }
+
+        // Initialize first scene
+        updateThreeScene(0);
+
+        // Mouse drag rotation variables
+        let isDragging = false;
+        let previousMousePosition = { x: 0, y: 0 };
+
+        container.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            previousMousePosition = { x: e.clientX, y: e.clientY };
+        });
+
+        window.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            const deltaX = e.clientX - previousMousePosition.x;
+            const deltaY = e.clientY - previousMousePosition.y;
+
+            activeGroup.rotation.y += deltaX * 0.01;
+            activeGroup.rotation.x += deltaY * 0.01;
+
+            previousMousePosition = { x: e.clientX, y: e.clientY };
+        });
+
+        window.addEventListener('mouseup', () => { isDragging = false; });
+
+        // Touch support for mobile rotation
+        container.addEventListener('touchstart', (e) => {
+            if (e.touches.length === 1) {
+                isDragging = true;
+                previousMousePosition = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+            }
+        });
+
+        window.addEventListener('touchmove', (e) => {
+            if (!isDragging || e.touches.length !== 1) return;
+            const deltaX = e.touches[0].clientX - previousMousePosition.x;
+            const deltaY = e.touches[0].clientY - previousMousePosition.y;
+
+            activeGroup.rotation.y += deltaX * 0.01;
+            activeGroup.rotation.x += deltaY * 0.01;
+
+            previousMousePosition = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+        });
+
+        window.addEventListener('touchend', () => { isDragging = false; });
+
+        // Animation Loop
+        function animate() {
+            requestAnimationFrame(animate);
+            if (!isDragging) {
+                activeGroup.rotation.y += 0.005;
+            }
+            renderer.render(scene, camera);
+        }
+        animate();
+
+        // Window resize handler
+        window.addEventListener('resize', () => {
+            const width = container.clientWidth;
+            const height = container.clientHeight;
+            camera.aspect = width / height;
+            camera.updateProjectionMatrix();
+            renderer.setSize(width, height);
+        });
+    </script>
+</body>
+</html>
