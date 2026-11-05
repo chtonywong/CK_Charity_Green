@@ -1,119 +1,250 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CK Charity Foundation Limited</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Three.js CDN -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            primary: '#2c5e50',   /* Deep Forest Green */
+                            secondary: '#3d7a69', /* Medium Sage Green */
+                            accent: '#519482',    /* Soft Emerald Accent */
+                            light: '#f2f7f5',     /* Very Light Mint/Green Background */
+                            dark: '#1b3b32'       /* Dark Pine Green */
+                        }
+                    }
+                }
+            }
+        }
+    </script>
     <!-- Google Fonts Inter -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; }
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .ascii-art {
+            font-family: 'Courier New', Courier, monospace;
+            white-space: pre;
+            line-height: 1.15;
+            font-size: 0.75rem;
+        }
+
+        @media (min-width: 640px) {
+            .ascii-art {
+                font-size: 0.85rem;
+            }
+        }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-800 antialiased selection:bg-emerald-500 selection:text-white">
 
-    <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-200">
+<body id="app-body" class="bg-slate-50 text-slate-800 antialiased selection:bg-brand-primary selection:text-white">
+
+    <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-emerald-100 shadow-sm">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
             <div class="flex items-center space-x-3">
-                <div class="w-10 h-10 rounded-xl bg-emerald-700 flex items-center justify-center text-white font-bold text-xl shadow-md">CK</div>
-                <div>
-                    <span class="block font-bold text-lg text-slate-900 leading-tight">CK Charity Foundation</span>
-                    <span class="block text-xs text-emerald-700 font-medium tracking-wide">Serving Hong Kong with Love</span>
-                </div>
+                <!-- Direct PNG Image Reference for Brown Logo (Green Theme Pair) -->
+                <a href="#home" class="flex items-center">
+                    <img src="RC-Logo-Brown.png" alt="CK Charity Foundation Logo" class="h-16 w-auto object-contain"
+                        onerror="this.onerror=null; this.src='https://placehold.co/220x80/2c5e50/ffffff?text=CK+Charity';">
+                </a>
             </div>
-            <nav class="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-600">
-                <a href="#home" class="hover:text-emerald-700 transition-colors">Home</a>
-                <a href="#about" class="hover:text-emerald-700 transition-colors">About Us</a>
-                <a href="#mission" class="hover:text-emerald-700 transition-colors">Mission</a>
-                <a href="#initiatives" class="hover:text-emerald-700 transition-colors">Initiatives & 3D Lab</a>
-                <a href="#contact" class="px-4 py-2 rounded-lg bg-emerald-700 text-white hover:bg-emerald-800 transition-colors shadow-sm">Work With Us</a>
-            </nav>
-            <button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg text-slate-600 hover:bg-slate-100">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
-            </button>
+
+            <div class="flex items-center space-x-4">
+                <!-- Navigation -->
+                <nav class="hidden md:flex items-center space-x-6 text-sm font-medium text-slate-700">
+                    <a href="#home" class="hover:text-brand-primary transition-colors" data-i18n="nav_home">Home</a>
+                    <a href="#about" class="hover:text-brand-primary transition-colors" data-i18n="nav_about">About
+                        Us</a>
+                    <a href="#mission" class="hover:text-brand-primary transition-colors"
+                        data-i18n="nav_mission">Mission</a>
+                    <a href="#initiatives" class="hover:text-brand-primary transition-colors"
+                        data-i18n="nav_initiatives">Initiatives</a>
+                    <a href="#contact"
+                        class="px-4 py-2 rounded-lg bg-brand-primary hover:bg-brand-dark text-white font-medium transition-colors shadow-sm"
+                        data-i18n="nav_contact">Work With Us</a>
+                </nav>
+
+                <!-- Language Toggle Button -->
+                <button onclick="toggleLanguage()"
+                    class="px-3.5 py-1.5 rounded-lg border border-brand-primary text-brand-primary hover:bg-brand-light text-xs font-semibold transition-colors flex items-center space-x-1">
+                    <span id="lang-btn-text">中文</span>
+                </button>
+
+                <button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg text-slate-600 hover:bg-slate-100">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
         </div>
+
         <!-- Mobile Menu -->
-        <div id="mobile-menu" class="hidden md:hidden px-4 pt-2 pb-4 space-y-2 bg-white border-b border-slate-200">
-            <a href="#home" class="block px-3 py-2 rounded-md hover:bg-slate-100 font-medium">Home</a>
-            <a href="#about" class="block px-3 py-2 rounded-md hover:bg-slate-100 font-medium">About Us</a>
-            <a href="#mission" class="block px-3 py-2 rounded-md hover:bg-slate-100 font-medium">Mission</a>
-            <a href="#initiatives" class="block px-3 py-2 rounded-md hover:bg-slate-100 font-medium">Initiatives & 3D Lab</a>
-            <a href="#contact" class="block px-3 py-2 rounded-md bg-emerald-700 text-white font-medium text-center">Work With Us</a>
+        <div id="mobile-menu" class="hidden md:hidden px-4 pt-2 pb-4 space-y-2 bg-white border-b border-emerald-100">
+            <a href="#home"
+                class="mobile-link block px-3 py-2 rounded-md hover:bg-brand-light text-slate-700 font-medium"
+                data-i18n="nav_home">Home</a>
+            <a href="#about"
+                class="mobile-link block px-3 py-2 rounded-md hover:bg-brand-light text-slate-700 font-medium"
+                data-i18n="nav_about">About Us</a>
+            <a href="#mission"
+                class="mobile-link block px-3 py-2 rounded-md hover:bg-brand-light text-slate-700 font-medium"
+                data-i18n="nav_mission">Mission</a>
+            <a href="#initiatives"
+                class="mobile-link block px-3 py-2 rounded-md hover:bg-brand-light text-slate-700 font-medium"
+                data-i18n="nav_initiatives">Initiatives</a>
+            <a href="#contact"
+                class="mobile-link block px-3 py-2 rounded-md bg-brand-primary text-white font-medium text-center"
+                data-i18n="nav_contact">Work With Us</a>
         </div>
     </header>
 
     <main>
-        <section id="home" class="relative overflow-hidden bg-gradient-to-b from-emerald-900 to-slate-900 text-white py-24 lg:py-32">
-            <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:16px_16px]"></div>
+        <!-- Home Section -->
+        <section id="home"
+            class="scroll-mt-20 relative overflow-hidden bg-gradient-to-b from-brand-dark via-brand-primary to-brand-secondary text-white py-24 lg:py-32">
+            <div
+                class="absolute inset-0 opacity-10 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:16px_16px]">
+            </div>
             <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative text-center">
-                <span class="inline-block py-1 px-3 rounded-full bg-emerald-800/80 text-emerald-200 text-xs font-semibold tracking-wider uppercase mb-6 border border-emerald-600/30">Faith-Driven Compassion</span>
-                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight mb-6">Serving Hong Kong with Love and Purpose</h1>
-                <p class="text-lg sm:text-xl text-slate-300 max-w-3xl mx-auto mb-10 leading-relaxed">Empowering vulnerable youth through financial literacy, lifting seniors and caregivers through brain health support, and bringing practical hope to our community.</p>
-                <div class="bg-white/10 backdrop-blur-md border border-white/10 rounded-2xl p-6 sm:p-8 max-w-2xl mx-auto mb-10 shadow-xl">
-                    <p class="italic text-emerald-200 text-base sm:text-lg mb-2">"Truly I tell you, whatever you did for one of the least of these brothers and sisters of mine, you did for me."</p>
-                    <span class="text-xs uppercase tracking-widest text-emerald-400 font-semibold">— Matthew 25:40</span>
+                <span
+                    class="inline-block py-1 px-3.5 rounded-full bg-white/15 text-emerald-100 text-xs font-semibold tracking-wider uppercase mb-6 border border-white/20"
+                    data-i18n="hero_badge">Faith-Driven Compassion</span>
+                <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight mb-6 leading-tight"
+                    data-i18n="hero_title">Serving Hong Kong with Love and Purpose.</h1>
+                <p class="text-base sm:text-lg text-emerald-50/90 max-w-3xl mx-auto mb-10 leading-relaxed"
+                    data-i18n="hero_desc">We are a group of Hong Kongers who have been deeply blessed by this city.
+                    Having lived and worked here for years, we believe it is time to give back. Rooted in the teachings
+                    of Christ, we seek to deliver a message of love through practical service—empowering the vulnerable,
+                    serving our seniors, and building a more cohesive community.</p>
+                <div
+                    class="bg-white/10 backdrop-blur-md border border-white/15 rounded-2xl p-6 sm:p-8 max-w-2xl mx-auto mb-10 shadow-xl">
+                    <p class="italic text-emerald-100 text-base sm:text-lg mb-2" data-i18n="hero_verse">"Truly I tell
+                        you, whatever you did for one of the least of these brothers and sisters of mine, you did for
+                        me."</p>
+                    <span class="text-xs uppercase tracking-widest text-emerald-200 font-semibold"
+                        data-i18n="hero_verse_ref">— Matthew 25:40</span>
                 </div>
                 <div class="flex flex-wrap justify-center gap-4">
-                    <a href="#initiatives" class="px-8 py-4 rounded-xl bg-emerald-500 text-white font-semibold hover:bg-emerald-600 transition-all shadow-lg hover:shadow-emerald-500/25">Explore Our Initiatives</a>
-                    <a href="#contact" class="px-8 py-4 rounded-xl bg-white/10 hover:bg-white/20 text-white font-semibold transition-all border border-white/20">Join Our Mission</a>
+                    <a href="#initiatives"
+                        class="px-8 py-4 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-semibold transition-all shadow-lg"
+                        data-i18n="btn_explore">Learn about our story</a>
+                    <a href="#contact"
+                        class="px-8 py-4 rounded-xl bg-white/10 hover:bg-white/20 text-white font-semibold transition-all border border-white/20"
+                        data-i18n="btn_join">Join our mission</a>
                 </div>
             </div>
         </section>
 
-        <section id="about" class="py-20 bg-white">
+        <!-- About Section -->
+        <section id="about" class="scroll-mt-20 py-20 bg-white">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center max-w-3xl mx-auto mb-16">
-                    <h2 class="text-3xl font-bold text-slate-900 sm:text-4xl mb-4">Our Story & Founders</h2>
-                    <p class="text-slate-600 text-lg">Born out of gratitude for the stability and opportunities Hong Kong offers, our founding team combines professional expertise with faith-driven action.</p>
+                    <h2 class="text-3xl font-bold text-brand-dark sm:text-4xl mb-4" data-i18n="about_title">Our Story &
+                        Founders</h2>
+                    <p class="text-slate-600 text-base sm:text-lg leading-relaxed" data-i18n="about_subtitle">CK Charity
+                        Foundation was born out of gratitude. Our founders have spent decades living and working in Hong
+                        Kong, benefiting enormously from the stability, opportunities, and community this city offers.
+                        We believe that success is not just about what we accumulate, but what we give back.</p>
                 </div>
                 <div class="grid md:grid-cols-3 gap-8">
-                    <div class="bg-slate-50 border border-slate-100 rounded-2xl p-8 shadow-sm hover:shadow-md transition-shadow">
-                        <div class="w-12 h-12 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold text-xl mb-6">💼</div>
-                        <h3 class="text-xl font-bold text-slate-900 mb-3">Financial Background</h3>
-                        <p class="text-slate-600 leading-relaxed">Empowering teenagers and low-income families by tackling financial insecurity and teaching practical money management and budgeting skills.</p>
+                    <div
+                        class="bg-brand-light border border-emerald-100/80 rounded-2xl p-8 shadow-sm hover:shadow-md transition-shadow">
+                        <div
+                            class="w-12 h-12 rounded-xl bg-brand-primary text-white flex items-center justify-center font-bold text-xl mb-6 shadow-sm">
+                            💼</div>
+                        <h3 class="text-xl font-bold text-brand-dark mb-3" data-i18n="about_card1_title">Financial
+                            Background</h3>
+                        <p class="text-slate-600 leading-relaxed text-sm sm:text-base" data-i18n="about_card1_desc">We
+                            understand the power of financial literacy and the trap of financial insecurity.</p>
                     </div>
-                    <div class="bg-slate-50 border border-slate-100 rounded-2xl p-8 shadow-sm hover:shadow-md transition-shadow">
-                        <div class="w-12 h-12 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold text-xl mb-6">📚</div>
-                        <h3 class="text-xl font-bold text-slate-900 mb-3">Education Background</h3>
-                        <p class="text-slate-600 leading-relaxed">Delivering transformative learning experiences that go far beyond textbooks, equipping young individuals for real-world challenges.</p>
+                    <div
+                        class="bg-brand-light border border-emerald-100/80 rounded-2xl p-8 shadow-sm hover:shadow-md transition-shadow">
+                        <div
+                            class="w-12 h-12 rounded-xl bg-brand-primary text-white flex items-center justify-center font-bold text-xl mb-6 shadow-sm">
+                            📚</div>
+                        <h3 class="text-xl font-bold text-brand-dark mb-3" data-i18n="about_card2_title">Education
+                            Background</h3>
+                        <p class="text-slate-600 leading-relaxed text-sm sm:text-base" data-i18n="about_card2_desc">We
+                            know how transformative learning can be, especially when it goes beyond textbooks.</p>
                     </div>
-                    <div class="bg-slate-50 border border-slate-100 rounded-2xl p-8 shadow-sm hover:shadow-md transition-shadow">
-                        <div class="w-12 h-12 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold text-xl mb-6">🏥</div>
-                        <h3 class="text-xl font-bold text-slate-900 mb-3">Dental & Healthcare</h3>
-                        <p class="text-slate-600 leading-relaxed">Recognizing the vital link between health, dignity, and quality of life—supporting parents and seniors with cognitive and physical care needs.</p>
+                    <div
+                        class="bg-brand-light border border-emerald-100/80 rounded-2xl p-8 shadow-sm hover:shadow-md transition-shadow">
+                        <div
+                            class="w-12 h-12 rounded-xl bg-brand-primary text-white flex items-center justify-center font-bold text-xl mb-6 shadow-sm">
+                            🏥</div>
+                        <h3 class="text-xl font-bold text-brand-dark mb-3" data-i18n="about_card3_title">Dental &
+                            Healthcare Background</h3>
+                        <p class="text-slate-600 leading-relaxed text-sm sm:text-base" data-i18n="about_card3_desc">We
+                            recognize the critical link between health, dignity, and quality of life.</p>
                     </div>
+                </div>
+                <div class="mt-12 text-center max-w-2xl mx-auto">
+                    <p class="text-brand-dark italic font-medium" data-i18n="about_footer">We are not just
+                        professionals; we are neighbours, friends, and followers of Christ who believe that faith
+                        without works is empty. We are here to serve.</p>
                 </div>
             </div>
         </section>
 
-        <section id="mission" class="py-20 bg-slate-100/70">
+        <!-- Mission Section -->
+        <section id="mission" class="scroll-mt-20 py-20 bg-brand-light/60">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="bg-emerald-900 text-white rounded-3xl p-8 sm:p-12 lg:p-16 shadow-xl relative overflow-hidden">
-                    <div class="absolute -right-20 -bottom-20 w-80 h-80 bg-emerald-800 rounded-full opacity-30 pointer-events-none"></div>
+                <div
+                    class="bg-brand-primary text-white rounded-3xl p-8 sm:p-12 lg:p-16 shadow-xl relative overflow-hidden">
                     <div class="max-w-3xl relative z-10">
-                        <span class="text-emerald-300 font-semibold text-sm uppercase tracking-wider block mb-2">Our Core Purpose</span>
-                        <h2 class="text-3xl sm:text-4xl font-extrabold mb-6">Our Mission</h2>
-                        <p class="text-slate-200 text-lg mb-8 leading-relaxed">To embody the love of Christ by addressing both the practical and spiritual needs of Hong Kong’s marginalized and aging populations through measurable, tangible action.</p>
+                        <span class="text-emerald-200 font-semibold text-sm uppercase tracking-wider block mb-2"
+                            data-i18n="mission_badge">Our Core Purpose</span>
+                        <h2 class="text-3xl sm:text-4xl font-extrabold mb-6" data-i18n="mission_title">Our Mission</h2>
+                        <p class="text-emerald-50 text-lg mb-8 leading-relaxed" data-i18n="mission_desc">Our mission is
+                            to embody the love of Christ by addressing both the practical and spiritual needs of Hong
+                            Kong’s marginalized and aging populations.</p>
                         <div class="grid sm:grid-cols-2 gap-6">
                             <div class="flex items-start space-x-3">
-                                <div class="w-6 h-6 rounded-full bg-emerald-500 text-white flex items-center justify-center flex-shrink-0 mt-1 font-bold text-xs">✓</div>
-                                <div><strong class="block text-white">Love in Action</strong><span class="text-slate-300 text-sm">Compassion through tangible support.</span></div>
+                                <div
+                                    class="w-6 h-6 rounded-full bg-emerald-400/20 text-emerald-300 flex items-center justify-center flex-shrink-0 mt-1 font-bold text-xs">
+                                    ✓</div>
+                                <div><strong class="block text-white" data-i18n="mission_item1_t">Deliver Love in
+                                        Action</strong><span class="text-emerald-100/90 text-sm"
+                                        data-i18n="mission_item1_d">To show compassion not just in words, but through
+                                        tangible support and service.</span></div>
                             </div>
                             <div class="flex items-start space-x-3">
-                                <div class="w-6 h-6 rounded-full bg-emerald-500 text-white flex items-center justify-center flex-shrink-0 mt-1 font-bold text-xs">✓</div>
-                                <div><strong class="block text-white">Empower Vulnerable</strong><span class="text-slate-300 text-sm">Equipping teens with life resources.</span></div>
+                                <div
+                                    class="w-6 h-6 rounded-full bg-emerald-400/20 text-emerald-300 flex items-center justify-center flex-shrink-0 mt-1 font-bold text-xs">
+                                    ✓</div>
+                                <div><strong class="block text-white" data-i18n="mission_item2_t">Empower the
+                                        Vulnerable</strong><span class="text-emerald-100/90 text-sm"
+                                        data-i18n="mission_item2_d">To equip individuals with knowledge and resources to
+                                        improve their lives.</span></div>
                             </div>
                             <div class="flex items-start space-x-3">
-                                <div class="w-6 h-6 rounded-full bg-emerald-500 text-white flex items-center justify-center flex-shrink-0 mt-1 font-bold text-xs">✓</div>
-                                <div><strong class="block text-white">Bridge Gaps</strong><span class="text-slate-300 text-sm">Professional expertise filling social needs.</span></div>
+                                <div
+                                    class="w-6 h-6 rounded-full bg-emerald-400/20 text-emerald-300 flex items-center justify-center flex-shrink-0 mt-1 font-bold text-xs">
+                                    ✓</div>
+                                <div><strong class="block text-white" data-i18n="mission_item3_t">Bridge
+                                        Gaps</strong><span class="text-emerald-100/90 text-sm"
+                                        data-i18n="mission_item3_d">To use our professional expertise to fill gaps left
+                                        by conventional social services.</span></div>
                             </div>
                             <div class="flex items-start space-x-3">
-                                <div class="w-6 h-6 rounded-full bg-emerald-500 text-white flex items-center justify-center flex-shrink-0 mt-1 font-bold text-xs">✓</div>
-                                <div><strong class="block text-white">Create Lasting Impact</strong><span class="text-slate-300 text-sm">Bringing hope and positive societal change.</span></div>
+                                <div
+                                    class="w-6 h-6 rounded-full bg-emerald-400/20 text-emerald-300 flex items-center justify-center flex-shrink-0 mt-1 font-bold text-xs">
+                                    ✓</div>
+                                <div><strong class="block text-white" data-i18n="mission_item4_t">Create
+                                        Impact</strong><span class="text-emerald-100/90 text-sm"
+                                        data-i18n="mission_item4_d">To give people hope and see positive, measurable
+                                        change in individuals and society.</span></div>
                             </div>
                         </div>
                     </div>
@@ -121,298 +252,446 @@
             </div>
         </section>
 
-        <section id="initiatives" class="py-20 bg-white">
+        <!-- Initiatives Section -->
+        <section id="initiatives" class="scroll-mt-20 py-20 bg-white">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center max-w-3xl mx-auto mb-12">
-                    <span class="text-emerald-700 font-semibold text-sm uppercase tracking-wider block mb-2">Interactive 3D Lab</span>
-                    <h2 class="text-3xl font-bold text-slate-900 sm:text-4xl mb-4">What We Do & Action Visualizer</h2>
-                    <p class="text-slate-600 text-lg">Click below to switch between our core focus areas and observe the interactive 3D graphic rendering of our community initiatives.</p>
+                    <span class="text-brand-primary font-semibold text-sm uppercase tracking-wider block mb-2"
+                        data-i18n="init_badge">Core Focus Areas</span>
+                    <h2 class="text-3xl font-bold text-brand-dark sm:text-4xl mb-4" data-i18n="init_heading">What We Do
+                    </h2>
+                    <p class="text-slate-600 text-lg" data-i18n="init_subheading">We focus on three core areas where our
+                        professional backgrounds and faith-driven compassion can make the biggest difference.</p>
                 </div>
 
                 <!-- Initiative Switcher Tabs -->
                 <div class="flex flex-wrap justify-center gap-3 mb-10">
-                    <button onclick="switchInitiative(0)" id="tab-0" class="px-6 py-3 rounded-xl font-semibold text-sm transition-all bg-emerald-700 text-white shadow-md">1. Financial Literacy (Teens)</button>
-                    <button onclick="switchInitiative(1)" id="tab-1" class="px-6 py-3 rounded-xl font-semibold text-sm transition-all bg-slate-100 text-slate-700 hover:bg-slate-200">2. Dreams Come True</button>
-                    <button onclick="switchInitiative(2)" id="tab-2" class="px-6 py-3 rounded-xl font-semibold text-sm transition-all bg-slate-100 text-slate-700 hover:bg-slate-200">3. Brain Health & Dementia (Parents)</button>
+                    <button onclick="switchInitiative(0)" id="tab-0"
+                        class="px-6 py-3 rounded-xl font-semibold text-sm transition-all bg-brand-primary text-white shadow-md">1.
+                        <span data-i18n="tab_1">Financial Literacy</span></button>
+                    <button onclick="switchInitiative(1)" id="tab-1"
+                        class="px-6 py-3 rounded-xl font-semibold text-sm transition-all bg-emerald-50 text-slate-700 hover:bg-emerald-100">2.
+                        <span data-i18n="tab_2">Dreams come true</span></button>
+                    <button onclick="switchInitiative(2)" id="tab-2"
+                        class="px-6 py-3 rounded-xl font-semibold text-sm transition-all bg-emerald-50 text-slate-700 hover:bg-emerald-100">3.
+                        <span data-i18n="tab_3">Dementia & Brain Health</span></button>
                 </div>
 
-                <div class="grid lg:grid-cols-12 gap-8 items-center bg-slate-900 rounded-3xl p-6 sm:p-10 text-white shadow-2xl">
+                <div
+                    class="grid lg:grid-cols-12 gap-8 items-center bg-brand-dark rounded-3xl p-6 sm:p-10 text-white shadow-2xl">
                     <!-- Text Details Column -->
                     <div class="lg:col-span-6 space-y-6">
                         <div id="initiative-info" class="space-y-4">
-                            <h3 id="init-title" class="text-2xl sm:text-3xl font-bold text-emerald-400">Financial Literacy: Teaching Beyond Conventional Learning</h3>
-                            <p id="init-desc" class="text-slate-300 leading-relaxed">Financial education in schools is minimal. We help at-risk youth and low-income families avoid debt and financial anxiety through practical money skills.</p>
-                            <ul id="init-list" class="space-y-2 text-slate-300 text-sm">
-                                <li class="flex items-center space-x-2"><span class="text-emerald-400 font-bold">•</span><span>Workshops on budgeting, saving, and avoiding predatory lending.</span></li>
-                                <li class="flex items-center space-x-2"><span class="text-emerald-400 font-bold">•</span><span>Targeted mentorship for young adults under financial stress.</span></li>
-                                <li class="flex items-center space-x-2"><span class="text-emerald-400 font-bold">•</span><span>Teaching the ethics of wealth, stewardship, and generosity.</span></li>
+                            <h3 id="init-title" class="text-2xl sm:text-3xl font-bold text-emerald-300">Financial
+                                Literacy: Teaching Beyond Conventional Learning</h3>
+                            <p id="init-desc" class="text-emerald-100/90 leading-relaxed">Financial education in Hong
+                                Kong schools is minimal. Many people struggle with debt and financial anxiety because
+                                they were never taught basic money management.</p>
+                            <ul id="init-list" class="space-y-2 text-emerald-100/90 text-sm">
+                                <li class="flex items-center space-x-2"><span
+                                        class="text-emerald-400 font-bold">•</span><span>Workshops on budgeting, saving,
+                                        and avoiding predatory lending.</span></li>
                             </ul>
                         </div>
                     </div>
-                    <!-- Three.js Canvas Column -->
-                    <div class="lg:col-span-6 relative h-80 sm:h-96 bg-slate-950 rounded-2xl overflow-hidden border border-slate-800 shadow-inner flex items-center justify-center">
-                        <div id="canvas-container" class="w-full h-full cursor-grab active:cursor-grabbing"></div>
-                        <div class="absolute bottom-4 left-4 bg-black/60 backdrop-blur-md px-3 py-1.5 rounded-lg text-xs text-slate-300 border border-white/10 pointer-events-none">
-                            Interactive 3D Simulation • Drag to rotate
-                        </div>
+
+                    <!-- ASCII Art Illustration Box -->
+                    <div
+                        class="lg:col-span-6 bg-slate-950/80 p-6 rounded-2xl border border-emerald-900 shadow-inner flex flex-col items-center justify-center overflow-x-auto">
+                        <pre id="ascii-art-container" class="ascii-art text-emerald-400 font-mono select-none"></pre>
+                        <span id="ascii-caption" class="text-xs text-emerald-300/70 mt-4 italic">Illustration</span>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="contact" class="py-20 bg-slate-50 border-t border-slate-200">
+        <!-- Contact Section -->
+        <section id="contact" class="scroll-mt-20 py-20 bg-brand-light/40 border-t border-emerald-100">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center max-w-3xl mx-auto mb-16">
-                    <h2 class="text-3xl font-bold text-slate-900 sm:text-4xl mb-4">Partner with Us</h2>
-                    <p class="text-slate-600 text-lg">Whether you are a teen looking for mentorship, a parent seeking health support, a volunteer, or an organization—we welcome you.</p>
+                    <h2 class="text-3xl font-bold text-brand-dark sm:text-4xl mb-4" data-i18n="contact_title">Partner
+                        with Us</h2>
+                    <p class="text-slate-600 text-lg" data-i18n="contact_subtitle">We cannot do this alone. Whether you
+                        are an individual looking to volunteer, a professional with expertise to share, or an
+                        organization seeking a partner—we would love to hear from you.</p>
                 </div>
                 <div class="grid md:grid-cols-3 gap-8 mb-16">
-                    <div class="bg-white rounded-2xl p-8 border border-slate-200 shadow-sm">
-                        <h3 class="text-xl font-bold text-slate-900 mb-3 text-emerald-700">Volunteer</h3>
-                        <p class="text-slate-600 text-sm leading-relaxed mb-4">We need hands and hearts. Teach a financial literacy class, visit a senior parent, or assist with community programs.</p>
-                        <span class="text-xs font-semibold uppercase tracking-wider text-slate-400">Get Involved</span>
+                    <div class="bg-white rounded-2xl p-8 border border-emerald-100 shadow-sm">
+                        <h3 class="text-xl font-bold text-brand-primary mb-3" data-i18n="card_vol_t">Volunteer</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed mb-4" data-i18n="card_vol_d">We need hands and
+                            hearts. Whether you can teach a financial class, visit a senior, or help with administrative
+                            tasks, your time is valuable.</p>
+                        <span class="text-xs font-semibold uppercase tracking-wider text-emerald-600"
+                            data-i18n="tag_vol">Get Involved</span>
                     </div>
-                    <div class="bg-white rounded-2xl p-8 border border-slate-200 shadow-sm">
-                        <h3 class="text-xl font-bold text-slate-900 mb-3 text-emerald-700">Partner</h3>
-                        <p class="text-slate-600 text-sm leading-relaxed mb-4">Collaborating with churches, faith-based groups, charity institutions, schools, and corporations with CSR goals.</p>
-                        <span class="text-xs font-semibold uppercase tracking-wider text-slate-400">Collaborate</span>
+                    <div class="bg-white rounded-2xl p-8 border border-emerald-100 shadow-sm">
+                        <h3 class="text-xl font-bold text-brand-primary mb-3" data-i18n="card_partner_t">Partner</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed mb-4" data-i18n="card_partner_d">We are looking
+                            for partnerships with churches and faith-based groups, relevant charity institutions,
+                            educational institutions, and corporations with CSR goals.</p>
+                        <span class="text-xs font-semibold uppercase tracking-wider text-emerald-600"
+                            data-i18n="tag_partner">Collaborate</span>
                     </div>
-                    <div class="bg-white rounded-2xl p-8 border border-slate-200 shadow-sm">
-                        <h3 class="text-xl font-bold text-slate-900 mb-3 text-emerald-700">Donate & Support</h3>
-                        <p class="text-slate-600 text-sm leading-relaxed mb-4">Your financial support enables us to run teen workshops, caregiver support groups, and reach vulnerable families.</p>
-                        <span class="text-xs font-semibold uppercase tracking-wider text-slate-400">Give Hope</span>
+                    <div class="bg-white rounded-2xl p-8 border border-emerald-100 shadow-sm">
+                        <h3 class="text-xl font-bold text-brand-primary mb-3" data-i18n="card_donate_t">Donate</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed mb-4" data-i18n="card_donate_d">Your financial
+                            support allows us to run our programs, purchase supplies and reach those in need.</p>
+                        <span class="text-xs font-semibold uppercase tracking-wider text-emerald-600"
+                            data-i18n="tag_donate">Give Hope</span>
                     </div>
                 </div>
-                <div class="bg-emerald-900 text-white rounded-2xl p-8 sm:p-12 text-center max-w-4xl mx-auto">
-                    <h3 class="text-2xl font-bold mb-4">Get in Touch with CK Charity Foundation</h3>
-                    <p class="text-slate-300 mb-6">Reach out to our team to join our upcoming workshops or support our mission.</p>
+                <div class="bg-brand-primary text-white rounded-2xl p-8 sm:p-12 text-center max-w-4xl mx-auto">
+                    <h3 class="text-2xl font-bold mb-4" data-i18n="touch_title">Contact Us</h3>
+                    <p class="text-emerald-100 mb-6" data-i18n="touch_desc">Get in touch with CK Charity Foundation
+                        Limited to get involved or support our cause.</p>
                     <div class="flex flex-wrap justify-center gap-6 text-sm font-medium">
-                        <div class="bg-white/10 px-6 py-3 rounded-xl border border-white/10">Email: info@ckcharity.org.hk</div>
-                        <div class="bg-white/10 px-6 py-3 rounded-xl border border-white/10">Phone: +852 2345 6789</div>
+                        <div class="bg-white/10 px-6 py-3 rounded-xl border border-white/15">Email:
+                            info@ckcharity.org.hk</div>
+                        <div class="bg-white/10 px-6 py-3 rounded-xl border border-white/15">Phone: +852 2345 6789</div>
                     </div>
                 </div>
             </div>
         </section>
     </main>
 
-    <footer class="bg-slate-900 text-slate-400 py-12 border-t border-slate-800 text-center">
+    <footer class="bg-brand-dark text-emerald-100/70 py-12 border-t border-emerald-900 text-center">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <p>&copy; 2026 CK Charity Foundation Limited. All rights reserved.</p>
+            <p data-i18n="footer_copy">&copy; 2026 CK Charity Foundation Limited. All rights reserved.</p>
         </div>
     </footer>
 
     <script>
-        // Mobile Menu Toggle
+        const translations = {
+            en: {
+                nav_home: "Home",
+                nav_about: "About Us",
+                nav_mission: "Mission",
+                nav_initiatives: "Initiatives",
+                nav_contact: "Work With Us",
+                hero_badge: "Faith-Driven Compassion",
+                hero_title: "Serving Hong Kong with Love and Purpose.",
+                hero_desc: "We are a group of Hong Kongers who have been deeply blessed by this city. Having lived and worked here for years, we believe it is time to give back. Rooted in the teachings of Christ, we seek to deliver a message of love through practical service—empowering the vulnerable, serving our seniors, and building a more cohesive community.",
+                hero_verse: '"Truly I tell you, whatever you did for one of the least of these brothers and sisters of mine, you did for me."',
+                hero_verse_ref: "— Matthew 25:40",
+                btn_explore: "Learn about our story",
+                btn_join: "Join our mission",
+                about_title: "Our Story & Founders",
+                about_subtitle: "CK Charity Foundation was born out of gratitude. Our founders have spent decades living and working in Hong Kong, benefiting enormously from the stability, opportunities, and community this city offers. We believe that success is not just about what we accumulate, but what we give back.",
+                about_card1_title: "Financial Background",
+                about_card1_desc: "We understand the power of financial literacy and the trap of financial insecurity.",
+                about_card2_title: "Education Background",
+                about_card2_desc: "We know how transformative learning can be, especially when it goes beyond textbooks.",
+                about_card3_title: "Dental & Healthcare Background",
+                about_card3_desc: "We recognize the critical link between health, dignity, and quality of life.",
+                about_footer: "We are not just professionals; we are neighbours, friends, and followers of Christ who believe that faith without works is empty. We are here to serve.",
+                mission_badge: "Our Core Purpose",
+                mission_title: "Our Mission",
+                mission_desc: "Our mission is to embody the love of Christ by addressing both the practical and spiritual needs of Hong Kong’s marginalized and aging populations.",
+                mission_item1_t: "Deliver Love in Action",
+                mission_item1_d: "To show compassion not just in words, but through tangible support and service.",
+                mission_item2_t: "Empower the Vulnerable",
+                mission_item2_d: "To equip individuals with knowledge and resources to improve their lives.",
+                mission_item3_t: "Bridge Gaps",
+                mission_item3_d: "To use our professional expertise (finance, education, health) to fill gaps left by conventional social services.",
+                mission_item4_t: "Create Impact",
+                mission_item4_d: "To give people hope and see positive, measurable change in individuals and, ultimately, in society.",
+                init_badge: "Core Focus Areas",
+                init_heading: "What We Do",
+                init_subheading: "We focus on three core areas where our professional backgrounds and faith-driven compassion can make the biggest difference.",
+                tab_1: "Financial Literacy",
+                tab_2: "Dreams come true",
+                tab_3: "Focus on Dementia & Brain Health",
+                contact_title: "Partner with Us",
+                contact_subtitle: "We cannot do this alone. Whether you are an individual looking to volunteer, a professional with expertise to share, or an organization seeking a partner—we would love to hear from you.",
+                card_vol_t: "Volunteer",
+                card_vol_d: "We need hands and hearts. Whether you can teach a financial class, visit a senior, or help with administrative tasks, your time is valuable.",
+                tag_vol: "Get Involved",
+                card_partner_t: "Partner",
+                card_partner_d: "We are looking for partnerships with churches and faith-based groups, relevant charity institutions, educational institutions, and corporations with CSR goals.",
+                tag_partner: "Collaborate",
+                card_donate_t: "Donate",
+                card_donate_d: "Your financial support allows us to run our programs, purchase supplies and reach those in need.",
+                tag_donate: "Give Hope",
+                touch_title: "Contact Us",
+                touch_desc: "Reach out to our team to join our upcoming workshops or support our mission.",
+                footer_copy: "© 2026 CK Charity Foundation Limited. All rights reserved."
+            },
+            zh: {
+                nav_home: "首頁",
+                nav_about: "關於我們",
+                nav_mission: "使命",
+                nav_initiatives: "服務項目",
+                nav_contact: "與我們同行",
+                hero_badge: "基督信仰與實際服務",
+                hero_title: "以愛與使命服侍香港",
+                hero_desc: "我們是一群土生土長的香港人，多年來深深感受到這座城市給予我們的恩惠。在這裏生活和工作多年，我們相信現在是回饋社會的時候。我們以基督的教導為根基，透過實際的服務傳遞愛的訊息——扶助弱勢、關顧長者，並建立更凝聚的社群。",
+                hero_verse: "「我實在告訴你們，這些事你們既做在我這弟兄中一個最小的身上，就是做在我身上了。」",
+                hero_verse_ref: "— 馬太福音 25:40",
+                btn_explore: "了解我們的故事",
+                btn_join: "加入我們的使命",
+                about_title: "我們的故事與創辦人",
+                about_subtitle: "CK慈善基金源於一份感恩的心。我們的創辦人在香港生活和工作數十載，從這座城市所給予的穩定、機遇和社群中獲益良多。我們深信，成功不僅在於我們累積了什麼，更在於我們回饋了什麼。",
+                about_card1_title: "金融背景",
+                about_card1_desc: "我們深知理財教育的力量，也明白財務不安全的困境。",
+                about_card2_title: "教育背景",
+                about_card2_desc: "我們了解學習如何改變生命，尤其是超越課本的學習。",
+                about_card3_title: "牙科及醫療背景",
+                about_card3_desc: "我們認同健康、尊嚴與生活質素之間的密切關係。",
+                about_footer: "我們不只是專業人士，更是鄰舍、朋友，以及跟隨基督的信徒，深信「信心沒有行為是死的」。我們在此，是為了服侍。",
+                mission_badge: "核心使命",
+                mission_title: "我們的使命",
+                mission_desc: "我們的使命是透過回應香港弱勢社群及長者的實際與心靈需要，體現基督的愛。",
+                mission_item1_t: "以行動傳遞愛",
+                mission_item1_d: "不只在言語上，更透過實際的支持與服務展現關懷。",
+                mission_item2_t: "扶助弱勢",
+                mission_item2_d: "裝備個人所需的知識與資源，改善他們的生活。",
+                mission_item3_t: "填補缺口",
+                mission_item3_d: "運用我們的專業知識（金融、教育、健康），填補傳統社會服務未能覆蓋的範疇。",
+                mission_item4_t: "創造影響",
+                mission_item4_d: "給予人希望，並在個人生命以至社會層面，帶來正面而可衡量的改變。",
+                init_badge: "核心範疇",
+                init_heading: "我們的工作",
+                init_subheading: "我們聚焦於三大核心範疇，結合我們的專業背景與信仰驅動的關懷，發揮最大的影響力。",
+                tab_1: "理財教育",
+                tab_2: "夢想成真",
+                tab_3: "關注認知障礙症及腦部健康",
+                contact_title: "與我們攜手",
+                contact_subtitle: "我們無法單靠自己完成這一切。無論你是希望成為義工的個人、願意分享專業知識的專才，還是尋求合作夥伴的機構——我們都期待與你聯絡。",
+                card_vol_t: "成為義工",
+                card_vol_d: "我們需要你一雙願意服侍的手和一顆心。無論你能教授理財課程、探訪長者，還是協助行政工作，你的時間都十分寶貴。",
+                tag_vol: "積極參與",
+                card_partner_t: "成為夥伴",
+                card_partner_d: "我們正尋找教會及信仰群體、相關慈善機構、教育機構及致力履行企業社會責任的公司合作。",
+                tag_partner: "攜手合作",
+                card_donate_t: "捐款支持",
+                card_donate_d: "你的經濟支持讓我們得以推行各項計劃、購買物資，並接觸有需要的人。",
+                tag_donate: "傳遞希望",
+                touch_title: "聯絡我們",
+                touch_desc: "歡迎隨時與CK慈善基金有限公司聯絡，參與或支持我們的服務。",
+                footer_copy: "© 2026 CK慈善基金有限公司。版權所有。"
+            }
+        };
+
+        const initiativeData = {
+            en: [
+                {
+                    title: "Financial Literacy: Teaching Beyond Conventional Learning",
+                    desc: "Financial education in Hong Kong schools is minimal. Many people struggle with debt and financial anxiety because they were never taught basic money management. Those from low-income families and “at risk” backgrounds are the most vulnerable. We go beyond standard textbooks to teach practical, real-world financial skills, and focus on targeted programs for at-risk youth – those facing financial stress and social isolation.",
+                    list: [
+                        "Workshops on budgeting, saving, and avoiding predatory lending.",
+                        "Mentorship for young adults and low-income families.",
+                        "Teaching the ethics of wealth and generosity."
+                    ],
+                    caption: "ASCII Art: Teacher educating youth on budgeting & saving skills.",
+                    ascii: `
+     +------------------------------------------+
+     |  BOARD: BUDGET & SAVINGS                  |
+     |  [$$$]  Income - Expenses = Savings      |
+     |  [ % ]  Avoid Debt & Growth              |
+     +------------------------------------------+
+             \\
+              \\   o/   "Always budget your future!"
+               \\  /|
+                 / \\
+       _____________________________________
+      /                                     \\
+    (o) (o) (o)       (o) (o) (o)       (o) (o)
+    <|> <|> <|>       <|> <|> <|>       <|> <|>
+    / \\ / \\ / \\       / \\ / \\ / \\       / \\ / \\
+   [STUDENTS LEARNING PRACTICAL MONEY SKILLS]
+`
+                },
+                {
+                    title: "Dreams come true",
+                    desc: "It is about helping those individuals who have the will and talent but lack the means or guidance to pursue a meaningful personal and therefore helping them to realise their dreams. It is not about granting wishes indiscriminately, but about removing specific obstacles or barriers between a person and a realistic dream.",
+                    list: [
+                        "Removing specific obstacles or barriers between a person and a realistic dream.",
+                        "Helping individuals who have will and talent but lack means or guidance.",
+                        "“Every dream deserves a chance, every person deserves hope.”"
+                    ],
+                    caption: "ASCII Art: Removing barriers to achieve realisable dreams.",
+                    ascii: `
+                        .    *        .       *
+                           *      .   /\\\\   .
+                                 *   /  \\\\     .
+                         *          / /\\\\ \\\\
+                                   / /  \\\\ \\\\   *
+                          .       / /____\\\\ \\\\
+                                 /__________\\\\
+                   *            /   DREAM    \\\\      .
+                    .          /____STEP______\\\\
+                              /                \\\\
+         o/                  /    FUTURE        \\\\
+        /|        =======>  /____________________\\\\
+        / \\                [REMOVING LIFE BARRIERS]
+`
+                },
+                {
+                    title: "Focus on Dementia & Brain Health",
+                    desc: "Dementia is one of the most pressing health challenges in Hong Kong. Current policy is designed around a single caregiver assumption, but the reality is that most dementia families rely on a caregiver network – multiple family members and domestic helpers sharing the load. The current system also fails to recognise supervision as a distinct care need. We hope we can make a difference with a focus on caregiver support – respite services, training or emotional support networks.",
+                    list: [
+                        "Awareness campaigns to reduce stigma.",
+                        "Educational workshops on brain health and early detection.",
+                        "Support groups and resources for family caregivers.",
+                        "Exploring the link between oral health and cognitive decline."
+                    ],
+                    caption: "ASCII Art: Dementia Care & Caregiver Support Networks.",
+                    ascii: `
+                     ,.--''''''--..
+                  ,'  .---.  .---.  \`.
+                 /   /     \\\\/     \\\\   \\
+                |   |   BRAIN HEALTH   |
+                |    \\\\     /\\\\     /    |
+                 \\    \`---'  \`---'    /
+                  \`.   SUPPORT NETWORK'
+                    \`---.------.---'
+                        |      |
+             +----------+      +----------+
+             |                            |
+           o/ \\\\o                        o/ \\\\o
+          /|   |\\\\                      /|   |\\\\
+          / \\\\ / \\\\                      / / / \\\\
+     [SENIOR & CAREGIVER]         [HEALTHCARE SUPPORT]
+`
+                }
+            ],
+            zh: [
+                {
+                    title: "1. 理財教育：超越傳統的學習",
+                    desc: "香港學校的理財教育極為有限。許多人因從未接受過基本的理財教育，而陷入債務與財務焦慮之中。來自低收入家庭及「高危」背景的青年，是最脆弱的一群。我們超越傳統課本，教授實用而貼近現實的理財技能，並聚焦於高危青年的針對性計劃——那些面對財務壓力與社交孤立的一群。",
+                    list: [
+                        "舉辦關於預算、儲蓄及避免高利貸的講座。",
+                        "為青年及低收入家庭提供師友計劃。",
+                        "教導財富倫理與慷慨分享的精神。"
+                    ],
+                    caption: "ASCII 圖解：導師教授青少年實用理財與預算技能。",
+                    ascii: `
+     +------------------------------------------+
+     |  黑板：預算與儲蓄知識                      |
+     |  [$$$]  收入 - 開支 = 儲蓄                |
+     |  [ % ]  防範高利貸，穩健成長               |
+     +------------------------------------------+
+             \\
+              \\   o/   「為未來建立良好的理財習慣！」
+               \\  /|
+                 / \\
+       _____________________________________
+      /                                     \\
+    (o) (o) (o)       (o) (o) (o)       (o) (o)
+    <|> <|> <|>       <|> <|> <|>       <|> <|>
+    / \\ / \\ / \\       / \\ / \\ / \\       / \\ / \\
+        [青少年認真學習實用理財技能]
+`
+                },
+                {
+                    title: "2. 夢想成真",
+                    desc: "這是關於幫助那些有意志、有才華，卻缺乏資源或指導去追求有意義的個人夢想的人，從而幫助他們實現夢想。這不是隨意地滿足願望，而是移除阻礙一個人與現實夢想之間的特定障礙。",
+                    list: [
+                        "移除阻礙一個人與現實夢想之間的特定障礙。",
+                        "幫助有意志、有才華，卻缺乏資源或指導的人。",
+                        "「每個夢想都值得一個機會，每個人都值得一份希望。」"
+                    ],
+                    caption: "ASCII 圖解：移除特定障礙，追求現實夢想。",
+                    ascii: `
+                        .    *        .       *
+                           *      .   /\\\\   .
+                                 *   /  \\\\     .
+                         *          / /\\\\ \\\\
+                                   / /  \\\\ \\\\   *
+                          .       / /____\\\\ \\\\
+                                 /__________\\\\
+                   *            /  實現夢想    \\\\      .
+                    .          /____階梯______\\\\
+                              /                \\\\
+         o/                  /    光明未來      \\\\
+        /|        =======>  /____________________\\\\
+        / \\                [移除生活障礙 勇敢追夢]
+`
+                },
+                {
+                    title: "3. 關注認知障礙症及腦部健康",
+                    desc: "認知障礙症是香港最嚴峻的健康挑戰之一。現行政策假設每個家庭只有一位主要照顧者，但現實是大多數認知障礙症家庭依賴一個照顧者網絡——多位家庭成員及家傭共同分擔。現行制度亦未能將「看護監督」視為一項獨立的照顧需求。我們希望能在照顧者支援方面帶來改變——包括暫託服務、培訓或情緒支援網絡。",
+                    list: [
+                        "舉辦關注活動，減少社會標籤與歧視。",
+                        "舉辦關於腦部健康及早期檢測的教育講座。",
+                        "為家庭照顧者提供支援小組及資源。",
+                        "探索口腔健康與認知衰退之間的關聯。"
+                    ],
+                    caption: "ASCII 圖解：照顧者網絡與腦健康關懷。",
+                    ascii: `
+                     ,.--''''''--..
+                  ,'  .---.  .---.  \`.
+                 /   /     \\\\/     \\\\   \\
+                |   |    腦健康關懷    |
+                |    \\\\     /\\\\     /    |
+                 \\    \`---'  \`---'    /
+                  \`.    照顧者支援網絡  '
+                    \`---.------.---'
+                        |      |
+             +----------+      +----------+
+             |                            |
+           o/ \\\\o                        o/ \\\\o
+          /|   |\\\\                      /|   |\\\\
+          / \\\\ / \\\\                      / / / \\\\
+     [長者與家庭照顧者]            [專業醫療網絡支援]
+`
+                }
+            ]
+        };
+
+        let currentLang = 'en';
+        let currentInitiativeIndex = 0;
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'en' ? 'zh' : 'en';
+            document.getElementById('lang-btn-text').innerText = currentLang === 'en' ? '中文' : 'English';
+
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[currentLang][key]) {
+                    el.innerText = translations[currentLang][key];
+                }
+            });
+
+            switchInitiative(currentInitiativeIndex);
+        }
+
+        function switchInitiative(index) {
+            currentInitiativeIndex = index;
+
+            for (let i = 0; i < 3; i++) {
+                const btn = document.getElementById(`tab-${i}`);
+                if (i === index) {
+                    btn.className = "px-6 py-3 rounded-xl font-semibold text-sm transition-all bg-brand-primary text-white shadow-md";
+                } else {
+                    btn.className = "px-6 py-3 rounded-xl font-semibold text-sm transition-all bg-emerald-50 text-slate-700 hover:bg-emerald-100";
+                }
+            }
+
+            const data = initiativeData[currentLang][index];
+            document.getElementById('init-title').innerText = data.title;
+            document.getElementById('init-desc').innerText = data.desc;
+            const listEl = document.getElementById('init-list');
+            listEl.innerHTML = data.list.map(item => `<li class="flex items-center space-x-2"><span class="text-emerald-400 font-bold">•</span><span>${item}</span></li>`).join('');
+
+            document.getElementById('ascii-art-container').innerText = data.ascii;
+            document.getElementById('ascii-caption').innerText = data.caption;
+        }
+
+        switchInitiative(0);
+
         const menuBtn = document.getElementById('mobile-menu-btn');
         const mobileMenu = document.getElementById('mobile-menu');
         menuBtn.addEventListener('click', () => {
             mobileMenu.classList.toggle('hidden');
         });
 
-        // Initiative content data
-        const initiativeData = [
-            {
-                title: "Financial Literacy: Teaching Beyond Conventional Learning",
-                desc: "Financial education in Hong Kong schools is minimal. We go beyond standard textbooks to teach practical money skills and targeted programs for at-risk youth.",
-                list: [
-                    "Workshops on budgeting, saving, and avoiding predatory lending.",
-                    "Mentorship for young adults and low-income families.",
-                    "Teaching the ethics of wealth, stewardship, and generosity."
-                ]
-            },
-            {
-                title: "Dreams Come True: Removing Barriers",
-                desc: "Helping individuals who have the will and talent but lack the means or guidance to pursue realistic personal goals and overcome obstacles.",
-                list: [
-                    "Empowering talented individuals with guidance and resources.",
-                    "Removing specific barriers between a person and a realistic dream.",
-                    "Fostering hope: 'Every dream deserves a chance, every person deserves hope.'"
-                ]
-            },
-            {
-                title: "Focus on Dementia & Brain Health (For Parents & Caregivers)",
-                desc: "Addressing pressing healthcare challenges in Hong Kong by supporting family caregiver networks and promoting early detection and brain health awareness.",
-                list: [
-                    "Caregiver support: respite services, training, and emotional networks.",
-                    "Educational workshops on brain health, early detection, and reducing stigma.",
-                    "Exploring the critical link between oral health and cognitive decline."
-                ]
-            }
-        ];
-
-        function switchInitiative(index) {
-            // Update active tab styles
-            for (let i = 0; i < 3; i++) {
-                const btn = document.getElementById(`tab-${i}`);
-                if (i === index) {
-                    btn.className = "px-6 py-3 rounded-xl font-semibold text-sm transition-all bg-emerald-700 text-white shadow-md";
-                } else {
-                    btn.className = "px-6 py-3 rounded-xl font-semibold text-sm transition-all bg-slate-100 text-slate-700 hover:bg-slate-200";
-                }
-            }
-
-            // Update text content
-            const data = initiativeData[index];
-            document.getElementById('init-title').innerText = data.title;
-            document.getElementById('init-desc').innerText = data.desc;
-            const listEl = document.getElementById('init-list');
-            listEl.innerHTML = data.list.map(item => `<li class="flex items-center space-x-2"><span class="text-emerald-400 font-bold">•</span><span>${item}</span></li>`).join('');
-
-            // Update Three.js 3D Scene
-            updateThreeScene(index);
-        }
-
-        // Three.js Setup
-        const container = document.getElementById('canvas-container');
-        const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(60, container.clientWidth / container.clientHeight, 0.1, 1000);
-        camera.position.z = 5;
-
-        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-        renderer.setSize(container.clientWidth, container.clientHeight);
-        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-        container.appendChild(renderer.domElement);
-
-        // Lighting
-        const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
-        scene.add(ambientLight);
-        const pointLight = new THREE.PointLight(0x10b981, 2, 50);
-        pointLight.position.set(5, 5, 5);
-        scene.add(pointLight);
-
-        // Active 3D Group
-        let activeGroup = new THREE.Group();
-        scene.add(activeGroup);
-
-        function createFinancialScene() {
-            const group = new THREE.Group();
-            // Create stack of coin cylinders
-            for (let i = 0; i < 5; i++) {
-                const geometry = new THREE.CylinderGeometry(1.2, 1.2, 0.2, 32);
-                const material = new THREE.MeshStandardMaterial({ color: 0x10b981, roughness: 0.3, metalness: 0.8 });
-                const coin = new THREE.Mesh(geometry, material);
-                coin.position.y = (i - 2) * 0.35;
-                group.add(coin);
-            }
-            return group;
-        }
-
-        function createDreamScene() {
-            const group = new THREE.Group();
-            // Create central glowing crystal/star
-            const geometry = new THREE.OctahedronGeometry(1.5, 0);
-            const material = new THREE.MeshStandardMaterial({ color: 0x3b82f6, roughness: 0.2, metalness: 0.5, wireframe: false });
-            const crystal = new THREE.Mesh(geometry, material);
-            group.add(crystal);
-
-            // Orbiting particles
-            for (let i = 0; i < 12; i++) {
-                const sphereGeo = new THREE.SphereGeometry(0.15, 16, 16);
-                const sphereMat = new THREE.MeshStandardMaterial({ color: 0xf59e0b });
-                const sphere = new THREE.Mesh(sphereGeo, sphereMat);
-                const angle = (i / 12) * Math.PI * 2;
-                sphere.position.set(Math.cos(angle) * 2.5, Math.sin(angle) * 0.5, Math.sin(angle) * 2.5);
-                group.add(sphere);
-            }
-            return group;
-        }
-
-        function createBrainHealthScene() {
-            const group = new THREE.Group();
-            // Neural network sphere representation
-            const sphereGeo = new THREE.SphereGeometry(1.4, 16, 16);
-            const sphereMat = new THREE.MeshStandardMaterial({ color: 0x065f46, wireframe: true, transparent: true, opacity: 0.7 });
-            const core = new THREE.Mesh(sphereGeo, sphereMat);
-            group.add(core);
-
-            for (let i = 0; i < 20; i++) {
-                const nodeGeo = new THREE.SphereGeometry(0.1, 8, 8);
-                const nodeMat = new THREE.MeshStandardMaterial({ color: 0x34d399, emissive: 0x059669 });
-                const node = new THREE.Mesh(nodeGeo, nodeMat);
-                node.position.set(
-                    (Math.random() - 0.5) * 3,
-                    (Math.random() - 0.5) * 3,
-                    (Math.random() - 0.5) * 3
-                );
-                group.add(node);
-            }
-            return group;
-        }
-
-        let currentSceneIndex = 0;
-        function updateThreeScene(index) {
-            currentSceneIndex = index;
-            scene.remove(activeGroup);
-            if (index === 0) activeGroup = createFinancialScene();
-            else if (index === 1) activeGroup = createDreamScene();
-            else if (index === 2) activeGroup = createBrainHealthScene();
-            scene.add(activeGroup);
-        }
-
-        // Initialize first scene
-        updateThreeScene(0);
-
-        // Mouse drag rotation variables
-        let isDragging = false;
-        let previousMousePosition = { x: 0, y: 0 };
-
-        container.addEventListener('mousedown', (e) => {
-            isDragging = true;
-            previousMousePosition = { x: e.clientX, y: e.clientY };
-        });
-
-        window.addEventListener('mousemove', (e) => {
-            if (!isDragging) return;
-            const deltaX = e.clientX - previousMousePosition.x;
-            const deltaY = e.clientY - previousMousePosition.y;
-
-            activeGroup.rotation.y += deltaX * 0.01;
-            activeGroup.rotation.x += deltaY * 0.01;
-
-            previousMousePosition = { x: e.clientX, y: e.clientY };
-        });
-
-        window.addEventListener('mouseup', () => { isDragging = false; });
-
-        // Touch support for mobile rotation
-        container.addEventListener('touchstart', (e) => {
-            if (e.touches.length === 1) {
-                isDragging = true;
-                previousMousePosition = { x: e.touches[0].clientX, y: e.touches[0].clientY };
-            }
-        });
-
-        window.addEventListener('touchmove', (e) => {
-            if (!isDragging || e.touches.length !== 1) return;
-            const deltaX = e.touches[0].clientX - previousMousePosition.x;
-            const deltaY = e.touches[0].clientY - previousMousePosition.y;
-
-            activeGroup.rotation.y += deltaX * 0.01;
-            activeGroup.rotation.x += deltaY * 0.01;
-
-            previousMousePosition = { x: e.touches[0].clientX, y: e.touches[0].clientY };
-        });
-
-        window.addEventListener('touchend', () => { isDragging = false; });
-
-        // Animation Loop
-        function animate() {
-            requestAnimationFrame(animate);
-            if (!isDragging) {
-                activeGroup.rotation.y += 0.005;
-            }
-            renderer.render(scene, camera);
-        }
-        animate();
-
-        // Window resize handler
-        window.addEventListener('resize', () => {
-            const width = container.clientWidth;
-            const height = container.clientHeight;
-            camera.aspect = width / height;
-            camera.updateProjectionMatrix();
-            renderer.setSize(width, height);
+        document.querySelectorAll('.mobile-link').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
         });
     </script>
 </body>
+
 </html>
